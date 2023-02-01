@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackageClasses = LinkShortenerController.class)
-public class SpringbootMgbApplication {
+public class GetShortyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootMgbApplication.class, args);
+		SpringApplication.run(GetShortyApplication.class, args);
 	}
 
 }
