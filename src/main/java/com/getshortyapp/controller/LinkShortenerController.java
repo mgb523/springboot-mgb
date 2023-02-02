@@ -1,5 +1,8 @@
-package com.javainuse.controllers;
+package com.getshortyapp.controller;
 
+import com.getshortyapp.entity.Link;
+import com.getshortyapp.service.LinkService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,9 @@ import java.net.URL;
 @RestController
 public class LinkShortenerController {
 
+    @Autowired
+    private LinkService linkService;
+
     /**
      * Curate and shorten link with encoded uri
      *
@@ -18,6 +24,10 @@ public class LinkShortenerController {
      */
     @GetMapping("/short-link")
     public URL getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
+        Link link = new Link();
+        link.setCurated(rawUrl);
+        linkService.saveLink(link);
+
         return new URI(rawUrl).normalize().toURL();
     }
 
