@@ -42,21 +42,10 @@ public class LinkShortenerController {
     /**
      * Retrieve curated link for navigation and increase the link's navigation count
      *
-     * @param path
+     * @param request
      * @return
      * @throws Exception
      */
-    @GetMapping("/curated-link")
-    public URL getCuratedLink(@RequestParam(required = true, name = "path") String path) throws Exception {
-        Link link = linkRepository.findByShortened(path);
-        link.setCount(link.getCount() + 1);
-        linkRepository.save(link);
-
-        return new URI(
-                link.getCurated()
-        ).normalize().toURL();
-    }
-
     @GetMapping("/{path:[^\\\\.]*}")
     public URL getCuratedLink(HttpServletRequest request) throws Exception {
         String path = new URI(request.getRequestURL().toString()).
