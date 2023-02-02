@@ -1,20 +1,23 @@
 package com.getshortyapp.controller;
 
 import com.getshortyapp.entity.Link;
-import com.getshortyapp.service.LinkService;
+import com.getshortyapp.repository.LinkRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 public class LinkShortenerController {
 
     @Autowired
-    private LinkService linkService;
+    LinkRepository linkRepository;
 
     /**
      * Curate and shorten link with encoded uri
@@ -24,23 +27,47 @@ public class LinkShortenerController {
      */
     @GetMapping("/short-link")
     public URL getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
+        String shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
+        String shortLink = "http://localhost:8989/" + shortPath;
+
         Link link = new Link();
         link.setCurated(rawUrl);
-        linkService.saveLink(link);
+        link.setShortened(shortPath);
+        link.setCount(0);
+        linkRepository.save(link);
 
-        return new URI(rawUrl).normalize().toURL();
+        return new URI(shortLink).normalize().toURL();
     }
 
     /**
      * Retrieve curated link for navigation and increase the link's navigation count
      *
-     * @param url
+     * @param path
      * @return
      * @throws Exception
      */
     @GetMapping("/curated-link")
-    public URL getCuratedLink(@RequestParam(required = true, name="url") String url) throws Exception {
-        return new URI(url).normalize().toURL();
+    public URL getCuratedLink(@RequestParam(required = true, name = "path") String path) throws Exception {
+        Link link = linkRepository.findByShortened(path);
+        link.setCount(link.getCount() + 1);
+        linkRepository.save(link);
+
+        return new URI(
+                link.getCurated()
+        ).normalize().toURL();
+    }
+
+    @GetMapping("/{path:[^\\\\.]*}")
+    public URL getCuratedLink(HttpServletRequest request) throws Exception {
+        String path = new URI(request.getRequestURL().toString()).
+                normalize().toURL().getPath().replace("/", "");
+        Link link = linkRepository.findByShortened(path);
+        link.setCount(link.getCount() + 1);
+        linkRepository.save(link);
+
+        return new URI(
+                link.getCurated()
+        ).normalize().toURL();
     }
 
     /**

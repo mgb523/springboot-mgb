@@ -1,34 +1,48 @@
 package com.getshortyapp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
-@Table(name="links")
+@Table(name = "links2")
+@Access(AccessType.FIELD)
 public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="curated")
+    @Column(name = "curated")
     private String curated;
 
     public void setCurated(String curatedLink) {
         this.curated = curatedLink;
     }
 
-    @Column(name="shortened")
+    public String getCurated() {
+        return this.curated;
+    }
+
+    @Column(name = "shortened")
     private String shortened;
 
-    @Column(name="count")
+    public void setShortened(String shortenedLink) {
+        this.shortened = shortenedLink;
+    }
+
+    public String getShortened() {
+        return this.shortened;
+    }
+
+    @Column(name = "count")
     private int count;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getCount() {
+        return this.count;
+    }
 }
