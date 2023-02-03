@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.math.BigInteger;
 import java.net.URI;
@@ -47,16 +48,19 @@ public class LinkShortenerController {
      * @throws Exception
      */
     @GetMapping("/{path:[^\\\\.]*}")
-    public URL getCuratedLink(HttpServletRequest request) throws Exception {
+    public RedirectView redirect(HttpServletRequest request) throws Exception {
         String path = new URI(request.getRequestURL().toString()).
                 normalize().toURL().getPath().replace("/", "");
         Link link = linkRepository.findByShortened(path);
         link.setCount(link.getCount() + 1);
         linkRepository.save(link);
 
-        return new URI(
-                link.getCurated()
-        ).normalize().toURL();
+        String redirectToUrl = new URI(
+                link.getCurated()).normalize().toURL().toString();
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(redirectToUrl);
+        return redirectView;
     }
 
     /**
