@@ -1,6 +1,6 @@
-package com.getshortyapp.service;
+package com.shortenlinkapp.service;
 
-import com.getshortyapp.entity.Link;
+import com.shortenlinkapp.entity.Link;
 
 public interface LinkServiceImpl {
     Link saveLink(Link link);

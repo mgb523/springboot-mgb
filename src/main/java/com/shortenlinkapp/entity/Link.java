@@ -1,4 +1,4 @@
-package com.getshortyapp.entity;
+package com.shortenlinkapp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

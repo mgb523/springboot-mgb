@@ -1,7 +1,7 @@
-package com.getshortyapp.controller;
+package com.shortenlinkapp.controller;
 
-import com.getshortyapp.entity.Link;
-import com.getshortyapp.repository.LinkRepository;
+import com.shortenlinkapp.entity.Link;
+import com.shortenlinkapp.repository.LinkRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
-public class LinkShortenerController {
+public class ShortenLinkController {
 
     @Autowired
     LinkRepository linkRepository;

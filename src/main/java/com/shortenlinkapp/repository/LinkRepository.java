@@ -1,6 +1,6 @@
-package com.getshortyapp.repository;
+package com.shortenlinkapp.repository;
 
-import com.getshortyapp.entity.Link;
+import com.shortenlinkapp.entity.Link;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

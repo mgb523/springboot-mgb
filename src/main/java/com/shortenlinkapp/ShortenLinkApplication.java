@@ -1,22 +1,20 @@
-package com.getshortyapp;
+package com.shortenlinkapp;
 
-import com.getshortyapp.controller.LinkShortenerController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 //@ComponentScan(basePackageClasses = LinkShortenerController.class)
-@ComponentScan({"com.getshortyapp"})
-@EntityScan("com.getshortyapp.entity")
-@EnableJpaRepositories("com.getshortyapp.repository")
-public class GetShortyApplication {
+@ComponentScan({"com.shortenlinkapp"})
+@EntityScan("com.shortenlinkapp.entity")
+@EnableJpaRepositories("com.shortenlinkapp.repository")
+public class ShortenLinkApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GetShortyApplication.class, args);
+		SpringApplication.run(ShortenLinkApplication.class, args);
 	}
 
 }
