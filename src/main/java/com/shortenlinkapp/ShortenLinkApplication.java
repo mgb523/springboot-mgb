@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 //@ComponentScan(basePackageClasses = LinkShortenerController.class)
-@ComponentScan({"com.shortenlinkapp"})
+//@ComponentScan({"com.shortenlinkapp"})
 @EntityScan("com.shortenlinkapp.entity")
 @EnableJpaRepositories("com.shortenlinkapp.repository")
 public class ShortenLinkApplication {
@@ -16,5 +16,4 @@ public class ShortenLinkApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ShortenLinkApplication.class, args);
 	}
-
 }

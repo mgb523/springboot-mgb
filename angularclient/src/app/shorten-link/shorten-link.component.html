@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+
+          <div class="col-6">
+            <div class="card-body">
+              <form (ngSubmit)="onSubmit()" #linkForm="ngForm">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="link.url"
+                         class="form-control"
+                         id="link"
+                         name="link"
+                         placeholder="Enter the Url to shorten"
+                         required #name="ngModel">
+                </div>
+                <button type="submit" [disabled]="!linkForm.form.valid"
+                        class="btn btn-info">Shorten Link</button>
+              </form>
+            </div>
+          </div>
+
+          <div *ngIf="link.shortenedUrl" class="col-6">
+            <div class="card-body">
+              <form #linkForm="ngForm">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="link.shortenedUrl"
+                         class="form-control"
+                         id="shortUrl"
+                         name="shortUrl">
+                </div>
+                <button type="submit" [disabled]="!linkForm.form.valid" [cdkCopyToClipboard]="copyLink()"
+                        class="btn btn-info">Copy Shortened Link</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import com.shortenlinkapp.entity.Link;
 import com.shortenlinkapp.repository.LinkRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShortenLinkController {
 
     @Autowired
@@ -26,7 +28,7 @@ public class ShortenLinkController {
      * @throws Exception
      */
     @GetMapping("/short-link")
-    public URL getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
+    public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
         String shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
         String shortLink = "http://localhost:8989/" + shortPath;
 
@@ -36,7 +38,7 @@ public class ShortenLinkController {
         link.setCount(0);
         linkRepository.save(link);
 
-        return new URI(shortLink).normalize().toURL();
+        return shortLink;
     }
 
     /**
