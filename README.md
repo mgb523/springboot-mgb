@@ -31,5 +31,6 @@ To run locally:
    - TTL
    - last access date and/or visit count
 - Deploy and host in AWS
+- Implement Db management with AWS RDS
 
 
