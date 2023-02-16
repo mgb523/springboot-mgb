@@ -30,5 +30,6 @@ To run locally:
 - Deprecation of Db items:
    - TTL
    - last access date and/or visit count
+- Deploy and host in AWS
 
 
