@@ -16,7 +16,7 @@
                          placeholder="Enter the Url to shorten"
                          required #name="ngModel">
                 </div>
-                <button type="submit" [disabled]="!linkForm.form.valid"
+                <button id="shortenUrl" type="submit" [disabled]="!linkForm.form.valid"
                         class="btn btn-info">Shorten Link</button>
               </form>
             </div>
@@ -31,7 +31,7 @@
                          id="shortUrl"
                          name="shortUrl">
                 </div>
-                <button type="submit" [disabled]="!linkForm.form.valid" [cdkCopyToClipboard]="copyLink()"
+                <button id="copyShortenedUrl" type="submit" [disabled]="!linkForm.form.valid" [cdkCopyToClipboard]="copyLink()"
                         class="btn btn-info">Copy Shortened Link</button>
               </form>
             </div>
