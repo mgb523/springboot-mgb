@@ -18,6 +18,7 @@ To run locally:
    - From command line, navigate to the angularclient folder
    - Enter npm start
 - On browser, navigate to localhost:4200 to start shortening Urls!
+- COMING SOON! E2E testing, including Selenium and back end tests in Java
    
 # What the application currently does
 - Generates a unique link for each processed Url
