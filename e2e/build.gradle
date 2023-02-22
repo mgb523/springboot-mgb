@@ -18,6 +18,12 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-junit:5.6.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation 'org.seleniumhq.selenium:selenium-chrome-driver:3.141.59'
+
+    implementation 'org.json:org.json:chargebee-1.0'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.3'
+    implementation files('libs/commons-logging-1.2.jar')
+    implementation 'org.telegram:telegrambots:3.3'
 }
 
 test {

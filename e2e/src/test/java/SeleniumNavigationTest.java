@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class NavigationTest extends SeleniumBase {
+public class SeleniumNavigationTest extends SeleniumBase {
 
     public static String LINK_SHORTENER_PAGE = "http://localhost:4200";
 
