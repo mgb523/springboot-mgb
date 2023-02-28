@@ -2,6 +2,7 @@ package com.shortenlinkapp.controller;
 
 import com.shortenlinkapp.entity.Link;
 import com.shortenlinkapp.repository.LinkRepository;
+import com.shortenlinkapp.service.LinkShortenerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,9 @@ public class ShortenLinkController {
     @Autowired
     LinkRepository linkRepository;
 
+    @Autowired
+    LinkShortenerService linkShortenerService;
+
     /**
      * Curate and shorten link with encoded uri
      *
@@ -29,16 +33,7 @@ public class ShortenLinkController {
      */
     @GetMapping("/short-link")
     public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
-        String shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
-        String shortLink = "http://localhost:8989/" + shortPath;
-
-        Link link = new Link();
-        link.setCurated(rawUrl);
-        link.setShortened(shortPath);
-        link.setCount(0);
-        linkRepository.save(link);
-
-        return shortLink;
+        return linkShortenerService.shortenLink(rawUrl);
     }
 
     /**
@@ -52,12 +47,8 @@ public class ShortenLinkController {
     public RedirectView redirect(HttpServletRequest request) throws Exception {
         String path = new URI(request.getRequestURL().toString()).
                 normalize().toURL().getPath().replace("/", "");
-        Link link = linkRepository.findByShortened(path);
-        link.setCount(link.getCount() + 1);
-        linkRepository.save(link);
 
-        String redirectToUrl = new URI(
-                link.getCurated()).normalize().toURL().toString();
+        String redirectToUrl = linkShortenerService.retrieveLink(path);
 
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(redirectToUrl);
