@@ -18,7 +18,7 @@ public class LinkShortenerService {
 
     public String shortenLink(String rawUrl) {
         String shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
-        String shortLink = "http://localhost:8989/" + shortPath;
+        String shortLink = "http://linkshortener.us-east-1.elasticbeanstalk.com/" + shortPath;
 
         Link link = new Link();
         link.setCurated(rawUrl);
