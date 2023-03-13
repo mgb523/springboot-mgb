@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://link-shortener-app.s3-website-us-east-1.amazonaws.com")
 public class ShortenLinkController {
 
     @Autowired

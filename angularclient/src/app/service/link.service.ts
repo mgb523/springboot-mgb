@@ -11,7 +11,7 @@ export class LinkService {
   private readonly shortenUrlBase: string;
 
   constructor(private http: HttpClient) {
-     this.shortenUrlBase = 'http://localhost:8989/short-link?rawUrl=';
+     this.shortenUrlBase = 'http://linkshortener.us-east-1.elasticbeanstalk.com/short-link?rawUrl=';
   }
 
   public shorten(link: Link):  Observable<String> {
