@@ -1,8 +1,10 @@
 package com.shortenlinkapp.service;
 
 import com.shortenlinkapp.entity.Link;
+import com.shortenlinkapp.exception.DuplicateValueException;
 import com.shortenlinkapp.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
@@ -16,9 +18,17 @@ public class LinkShortenerService {
     @Autowired
     LinkRepository linkRepository;
 
-    public String shortenLink(String rawUrl) {
-        String shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
-        String shortLink = "http://linkshortener.us-east-1.elasticbeanstalk.com/" + shortPath;
+    @Value("${backend.hostname}")
+    String hostname;
+
+    public String shortenLink(String rawUrl) throws DuplicateValueException {
+        String shortPath = getUniqueString();
+
+        if (null != linkRepository.findByShortened(shortPath)) {
+            throw new DuplicateValueException("The unique string created for this path already exists");
+        }
+
+        String shortLink = hostname.replace("\"", "") + "/" + shortPath;
 
         Link link = new Link();
         link.setCurated(rawUrl);
@@ -27,6 +37,18 @@ public class LinkShortenerService {
         linkRepository.save(link);
 
         return shortLink;
+    }
+
+    public String getUniqueString() {
+        boolean isDuplicate = true;
+        String shortPath = null;
+
+        while (isDuplicate) {
+            shortPath = Integer.toHexString(ThreadLocalRandom.current().nextInt(10000000, 999999999));
+            isDuplicate = (null != linkRepository.findByShortened(shortPath));
+        }
+
+        return shortPath;
     }
 
     public String retrieveLink(String path) throws URISyntaxException, MalformedURLException {
