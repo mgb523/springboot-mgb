@@ -4,9 +4,6 @@ import com.shortenlinkapp.entity.Link;
 import com.shortenlinkapp.repository.LinkRepository;
 import com.shortenlinkapp.service.LinkShortenerService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.SystemException;
-import lombok.Value;
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +34,8 @@ public class ShortenLinkController {
      * @throws Exception
      */
     @GetMapping("/short-link")
-    public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
-        try {
-            return linkShortenerService.shortenLink(rawUrl);
-        } catch (RuntimeException e) {
-            throw e;
-        }
+    public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) {
+        return linkShortenerService.shortenLink(rawUrl);
     }
 
     /**
