@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.URI;
-import java.net.URL;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://link-shortener-app.s3-website-us-east-1.amazonaws.com")
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "http://link-shortener-app.s3-website-us-east-1.amazonaws.com"
+})
 public class ShortenLinkController {
 
     @Autowired
@@ -32,8 +34,18 @@ public class ShortenLinkController {
      * @throws Exception
      */
     @GetMapping("/short-link")
-    public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) throws Exception {
+    public String getShortLink(@RequestParam(required = true, name="rawUrl") String rawUrl) {
         return linkShortenerService.shortenLink(rawUrl);
+    }
+
+    /**
+     * Get all links
+     *
+     * @return Link list
+     */
+    @GetMapping("/short-links")
+    public List<Link> getAllLinks() {
+        return linkRepository.findAll();
     }
 
     /**
