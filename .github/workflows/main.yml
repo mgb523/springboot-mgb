@@ -16,8 +16,6 @@ jobs:
           ref: stage
       - name: Build And Deploy
         run: |
-          bundle config set --local path 'var/deploy'
-          cd /var/deploy
           echo ls /var/deploy
-          ls
+          ls /var/deploy
           
