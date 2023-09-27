@@ -16,6 +16,7 @@ jobs:
           ref: stage
       - name: Build And Deploy
         run: |
-          echo ls /var/deploy
-          ls /var/deploy
+          echo ls 
+          ls
+          ls ../..
           
