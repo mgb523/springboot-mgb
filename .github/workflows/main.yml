@@ -18,5 +18,8 @@ jobs:
         run: |
           echo ls 
           ls
+          echo ls ../..
           ls ../..
+          echo ls ../../..
+          ls ../../..
           
