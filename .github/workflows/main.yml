@@ -1,0 +1,21 @@
+name: Test basic workflow
+
+permissions:
+  id-token: write
+  contents: read
+
+on: [workflow_dispatch]
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Stage Branch
+        uses: actions/checkout@v3
+        with:
+          ref: stage
+      - name: Build And Deploy
+        run: |
+          echo '$home'
+          echo $HOME
+          
