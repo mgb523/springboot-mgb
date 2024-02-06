@@ -6,14 +6,13 @@ permissions:
 
 on: 
   workflow_dispatch:
-    inputs:
-      cron_expression:
-        description: 'CRON expression'
-        required: true
+  schedule:
+    - cron: ‘*/5 * * * *’
 
 jobs:
   checkout:
     runs-on: ubuntu-latest
+    if: github.event.schedule != null 
     steps:
       - name: Checkout Stage Branch
         uses: actions/checkout@v3
