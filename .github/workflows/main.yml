@@ -5,15 +5,12 @@ permissions:
   contents: read
 
 on: 
-  workflow_dispatch:
   schedule:
-  - cron: "30 13 * * 3"
-  - cron: "0 6 * * 1"
+  - cron: '* * * * *'
 
 jobs:
-  checkout:
+  job-1:
     runs-on: ubuntu-latest
-    if: github.event.schedule != null 
     steps:
       - name: Checkout Stage Branch
         uses: actions/checkout@v3
@@ -21,6 +18,24 @@ jobs:
           ref: stage
       - name: Build And Deploy
         run: |
+          echo ls 
+          ls
+          echo ls ../..
+          ls ../..
+          echo ls ../../..
+          ls ../../..
+          ls ../../../runners
+
+  job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Stage Branch
+        uses: actions/checkout@v3
+        with:
+          ref: stage
+      - name: Build And Deploy
+        run: |
+          sleep 15
           echo ls 
           ls
           echo ls ../..
