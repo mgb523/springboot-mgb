@@ -18,7 +18,7 @@ jobs:
           
       - name: Build And Deploy
         run: |
-          for i in {1..5}; do
+          for i in {1..{{vars.ITERATIONS}}}; do
             echo ls 
             ls
             echo ls ../..
