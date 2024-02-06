@@ -4,7 +4,9 @@ permissions:
   id-token: write
   contents: read
 
-on: [workflow_dispatch]
+on: 
+  schedule:
+  - cron: "${{ vars.SCHEDULE }}"
 
 jobs:
   checkout:
