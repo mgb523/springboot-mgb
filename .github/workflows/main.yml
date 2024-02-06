@@ -18,8 +18,8 @@ jobs:
           
       - name: Build And Deploy
         run: |
-          for i in {1..{{vars.ITERATIONS}}}; do
-            echo ' Iteration # 'i
+          for i in {1..${{vars.ITERATIONS}}}; do
+            echo ' Iteration # '$i
             echo ' '
             echo ls 
             ls
