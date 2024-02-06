@@ -5,8 +5,11 @@ permissions:
   contents: read
 
 on: 
-  schedule:
-  - cron: "${{ vars.SCHEDULE }}"
+  workflow_dispatch:
+    inputs:
+      cron_expression:
+        description: 'CRON expression'
+        required: true
 
 jobs:
   checkout:
